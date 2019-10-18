@@ -4,10 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Link to Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <title>Survey</title>
 </head>
 <body>
-    <h1>SURVEY</h1>
+    <h1>SURVEY QUESTIONS</h1>
+
+    <!-- Construct the survey here -->
+    <form>
+        <!-- Name and Picture -->
+        <div class="form-group">
+            <label for="your-name">Your Name (Required)</label>
+            <input type="text" class="form-control" id="your-name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="your-photo">Link to Photo Image (Required)</label>
+            <input type="text" class="form-control" id="your-photo" placeholder="Link to your picture">
+        </div>
+
+        <!-- Questions -->
+
+        <div class="form-group">
+                <label for="question-1"><h3>Question 1</h3></label>
+                <p>Generally speaking, you rely more on your experience than your imagination.</p>
+                <select class="form-control" id="question-1">
+                  <option>1 (Strongly Disagree)</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5 (Strongly Agree)</option>
+                </select>
+
+                <label for="question-2"><h3>Question 2</h3></label>
+                <p>Your mind is always buzzing with unexplored ideas and plans.</p>
+                <select class="form-control" id="question-2">
+                  <option>1 (Strongly Disagree)</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5 (Strongly Agree)</option>
+                </select>
+
+                <label for="question-3"><h3>Question 3</h3></label>
+                <p>You find it easy to stay relaxed and focused even when there is some pressure.</p>
+                <select class="form-control" id="question-3">
+                  <option>1 (Strongly Disagree)</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5 (Strongly Agree)</option>
+                </select>
+
+                <label for="question-4"><h3>Question 4</h3></label>
+                <p>You rarely do something just out of sheer curiosity.</p>
+                <select class="form-control" id="question-4">
+                  <option>1 (Strongly Disagree)</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5 (Strongly Agree)</option>
+                </select>
+
+                <label for="question-5"><h3>Question 5</h3></label>
+                <p>People can rarely upset you.</p>
+                <select class="form-control" id="question-5">
+                  <option>1 (Strongly Disagree)</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5 (Strongly Agree)</option>
+                </select>
+              </div>
+
+              <label for="question-6"><h3>Question 6</h3></label>
+              <p>It is often difficult for you to relate to other people’s feelings.</p>
+              <select class="form-control" id="question-6">
+                <option>1 (Strongly Disagree)</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5 (Strongly Agree)</option>
+              </select>
+
+              <label for="question-7"><h3>Question 7</h3></label>
+              <p>In a discussion, truth should be more important than people’s sensitivities.</p>
+              <select class="form-control" id="question-7">
+                <option>1 (Strongly Disagree)</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5 (Strongly Agree)</option>
+              </select>
+
+              <label for="question-8"><h3>Question 8</h3></label>
+              <p>You rarely get carried away by fantasies and ideas.</p>
+              <select class="form-control" id="question-8">
+                <option>1 (Strongly Disagree)</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5 (Strongly Agree)</option>
+              </select>
+
+              <label for="question-9"><h3>Question 9</h3></label>
+              <p>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</p>
+              <select class="form-control" id="question-9">
+                <option>1 (Strongly Disagree)</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5 (Strongly Agree)</option>
+              </select>
+
+              <label for="question-10"><h3>Question 10</h3></label>
+              <p>You feel more energetic after spending time with a group of people.</p>
+              <select class="form-control" id="question-10">
+                <option>1 (Strongly Disagree)</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>s
+                <option>5 (Strongly Agree)</option>
+              </select>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+
+
+
+    </form>
+
+
+<!-- This is the code that will handle the form -->
+<script type="text/javascript">
+// In this code below we create the Front-end JavaScript which "POSTS" our form data to our express server.
+// In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
+// Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
+// In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
+
+$(".submit").on("click", function(event) {
+    event.preventDefault();
+
+    // Here we grab the form elements
+    var newReservation = {
+    customerName: $("#reserve-name").val().trim(),
+    phoneNumber: $("#reserve-phone").val().trim(),
+    customerEmail: $("#reserve-email").val().trim(),
+    customerID: $("#reserve-unique-id").val().trim()
+    };
+
+    console.log(newReservation);
+
+    // This line is the magic. It"s very similar to the standard ajax function we used.
+    // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
+    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
+    // depending on if a tables is available or not.
+
+    $.post("/api/tables", newReservation,
+    function(data) {
+
+        // If a table is available... tell user they are booked.
+        if (data) {
+        alert("Yay! You are officially booked!");
+        }
+
+        // If a table is available... tell user they on the waiting list.
+        else {
+        alert("Sorry you are on the wait list");
+        }
+
+        // Clear the form when submitting
+        $("#reserve-name").val("");
+        $("#reserve-phone").val("");
+        $("#reserve-email").val("");
+        $("#reserve-unique-id").val("");
+
+    });
+
+});
+
+</script>
+      
     
 </body>
 </html>
