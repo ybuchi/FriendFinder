@@ -34,8 +34,7 @@ module.exports = function(app) {
 // Create New Person - takes in JSON input
 app.post("/api/friends", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
-  // This works because of our body parsing middleware
-  console.log(req);
+  // This works because of our body parsing middlewarec
   var newPerson = req.body;
 
 
@@ -106,11 +105,11 @@ console.log("The best match is: " + allPossibleFriends[index].name);
 
 
 
-app.get("/api/friends", function(req,res){
-  //Respond with the closest match
-alert(res.json(allPossibleFriends[index].name));
+// app.get("/api/friends", function(req,res){
+//   //Respond with the closest match
+// alert(res.json(allPossibleFriends[index].name));
 
-})
+// })
 
 });//end of post method
 
