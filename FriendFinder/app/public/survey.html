@@ -167,31 +167,99 @@
     
         console.log(newFriend);
     
-        // This line is the magic. It"s very similar to the standard ajax function we used.
-        // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
         // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-        // depending on if a tables is available or not.
     
-        $.post("/api/friends", newFriend,
-        function(data) {
-    
-            // If a table is available... tell user they are booked.
-            if (data) {
-            alert("Thank you! You have been added to someone else's list of potential friends!");
-            }
+        $.post("/api/friends", newFriend, function(req,res){ 
 
-            //Console log the data
-        
-    
-            // Clear the form when submitting
-            $("#your-name").val("");
-            $("#your-photo").val("");
+          console.log("This is the data from the post method:" + data);
 
-            
-    
+          alert("Thank you! You have been added to someone else's list of potential friends! Finding your best match...");
+
+
+          // Clear the form when submitting
+          $("#your-name").val("");
+          $("#your-photo").val("");
         });
-    
-    });
+
+
+
+// Displays a single character, or returns false
+$.get("/api/friends", function(data) {
+  console.log("This is the data" + data);
+  var allPossibleFriends = data;
+
+  ///////////////////////
+  ///////////////////////Make the calculations
+  //Create a variable that will hold all the scores
+
+  var scores = [];
+
+  function sumArray(arr){
+    var sum = 0;
+    for (var i = 0; i < arr.length; i++) {
+      sum += arr[i]
+    }
+    return sum
+  }
+ function compareArrays(array1, array2){
+  var finalArray = [];
+
+
+  //Loop through the given array to compare the scores between the two arrays
+  for (u = 0; u < array1.length; u++){
+  
+
+
+   newNumber = Math.abs(array1[u] - array2[u]);
+
+   //push the new number in the finalArray
+   finalArray.push(newNumber);
+   
+  }
+   //Once done with the loop, calculate the final score by adding all nuymbers in the array
+
+  console.log(finalArray);
+  var score = sumArray(finalArray)
+  console.log("The score is : " + score);
+
+  //Store the score in an array 
+  scores.push(score);
+ }//end of Compare Array function
+
+  //Create a for loop that will use comparArrays function 
+
+for (i = 0; i < allPossibleFriends.length; i++){
+
+  compareArrays(allPossibleFriends[i].scores, newFriend.scores);
+  console.log(allPossibleFriends);
+
+}
+console.log("Here is the list of scores: " + scores);
+
+  //Choose the lowest score and display the matching friend's profile in an alert
+  var index = 0;
+  var value = scores[0];
+  for (var i = 1; i < scores.length - 1 ; i++) {
+  if (scores[i] < value) {
+    value = scores[i];
+    index = i;
+  }
+
+}
+console.log("The index with the lowest number is: " + index);
+
+alert("Congratulations! We found a match! Your best match is: " + allPossibleFriends[index].name + allPossibleFriends[index].photo);
+ 
+
+  // for (var i = 0; i < characters.length; i++) {
+  //   if (chosen === characters[i].routeName) {
+  //     return res.json(characters[i]);
+  //   }
+  // }
+
+  // return res.json(false);
+});
+      });
     
     
     </script> 

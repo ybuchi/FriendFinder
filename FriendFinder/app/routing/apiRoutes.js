@@ -5,6 +5,7 @@
 // ===============================================================================
 
 var allPossibleFriends = require("../data/friends");
+var index
 
 // ===============================================================================
 // ROUTING
@@ -34,6 +35,7 @@ module.exports = function(app) {
 app.post("/api/friends", function(req, res) {
   // req.body hosts is equal to the JSON post sent from the user
   // This works because of our body parsing middleware
+  console.log(req);
   var newPerson = req.body;
 
 
@@ -88,8 +90,28 @@ for (i = 0; i < allPossibleFriends.length; i++){
 }
 console.log("Here is the list of scores: " + scores);
 
-  res.json(newPerson);
-  
-});
+  //Choose the lowest score and display the matching friend's profile in an alert
+  var index = 0;
+  var value = scores[0];
+  for (var i = 1; i < scores.length - 1 ; i++) {
+  if (scores[i] < value) {
+    value = scores[i];
+    index = i;
+  }
+
+}
+console.log("The index with the lowest number is: " + index);
+
+console.log("The best match is: " + allPossibleFriends[index].name);
+
+
+
+app.get("/api/friends", function(req,res){
+  //Respond with the closest match
+alert(res.json(allPossibleFriends[index].name));
+
+})
+
+});//end of post method
 
 };
