@@ -30,29 +30,66 @@ module.exports = function(app) {
   // (ex. User fills out a reservation request... this data is then sent to the server...
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
+// Create New Person - takes in JSON input
+app.post("/api/friends", function(req, res) {
+  // req.body hosts is equal to the JSON post sent from the user
+  // This works because of our body parsing middleware
+  var newPerson = req.body;
 
-  app.post("/api/friends", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body parsing middleware
-    if (allPossibleFriends.length < 5) {
 
-      allPossibleFriends.push(req.body);
-      res.json(true);
-      
+  allPossibleFriends.push(newPerson);
+
+  console.log(allPossibleFriends[0].name);
+  console.log("This is new Person: " + newPerson.scores);
+  
+  //Calculate the user's score and compare it with the others
+  //Create a variable that will hold all the scores
+
+  var scores = [];
+
+  function sumArray(arr){
+    var sum = 0;
+    for (var i = 0; i < arr.length; i++) {
+      sum += arr[i]
     }
+    return sum
+  }
+ function compareArrays(array1, array2){
+  var finalArray = []
 
-  });
+  //Loop through the given array to compare the scores between the two arrays
+  for (u = 0; u < array1.length; u++){
+  
 
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
 
-  app.post("/api/clear", function(req, res) {
-    // Empty out the arrays of data
-    tableData.length = 0;
-    waitListData.length = 0;
+   newNumber = Math.abs(array1[u] - array2[u]);
 
-    res.json({ ok: true });
-  });
+   //push the new number in the finalArray
+   finalArray.push(newNumber);
+   
+  }
+   //Once done with the loop, calculate the final score by adding all nuymbers in the array
+
+  console.log(finalArray);
+  var score = sumArray(finalArray)
+  console.log("The score is : " + score);
+
+  //Store the score in an array 
+  scores.push(score);
+ }//end of Compare Array function
+
+  //Create a for loop that will use comparArrays function 
+
+for (i = 0; i < allPossibleFriends.length; i++){
+
+  compareArrays(allPossibleFriends[i].scores, newPerson.scores);
+  console.log(allPossibleFriends);
+
+}
+console.log("Here is the list of scores: " + scores);
+
+  res.json(newPerson);
+  
+});
+
 };
