@@ -1,0 +1,16 @@
+{
+  "name": "FriendFinder",
+  "version": "1.0.0",
+  "description": "Helps you find friends.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Yannik Buchi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "keywords": []
+}
